@@ -1,0 +1,68 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.0'
+    }
+}
+apply plugin: 'com.android.application'
+
+repositories {
+    mavenCentral()
+    jcenter()
+}
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion '23.0.1'
+
+
+    signingConfigs {
+        release {
+            keyAlias 'android'
+            keyPassword 'android'
+            storeFile file('prod.jks')
+            storePassword 'android'
+        }
+    }
+
+    defaultConfig {
+        applicationId 'com.kbc.hindi'
+        minSdkVersion 14
+        targetSdkVersion 21
+        versionCode 3
+        versionName "1.0"
+
+        resConfigs "en", "hi", "ta", "te"
+    }
+
+
+    buildTypes {
+        release {
+            // 开启混淆之后减少1MB
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            shrinkResources true
+            zipAlignEnabled true
+            pseudoLocalesEnabled true
+            signingConfig signingConfigs.release
+        }
+
+        debug {
+            multiDexEnabled false
+            signingConfig signingConfigs.release
+        }
+    }
+
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    // some dependencies
+    compile 'com.android.support:appcompat-v7:23.0.1'
+//    compile 'com.flurry.android:analytics:6.2.0'
+}

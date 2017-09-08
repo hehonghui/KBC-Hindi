@@ -1,0 +1,9 @@
+
+*.jks
+.gradle/
+build/
+.idea/vcs.xml
+.idea/
+*/**/.DS_Store
+*.apk
+*.class
